@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Document</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
      <style>
-          .col-20{
+          .col-20 {
                width: 20%;
-               flex:0 0 auto;
+               flex: 0 0 auto;
           }
      </style>
 
 </head>
+
 <body>
      <section>
           <div class="container">
                <div class="row">
                     <div class="my-3" id="card">
-                       
+
                     </div>
                </div>
           </div>
@@ -27,26 +30,23 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
      <script>
 
-          fetch(`https://dummyjson.com/carts`)
-          .then((response) => response.json())
-          .then((data) => {
-               console.log(data.carts);
-               //console.log(data.carts[0].products);
-               let tbl="";
-               let cart = data.carts;
-               //console.log(cart);
-               cart.map((item)=>{
-                   
-                         tbl+= `
+          $.ajax({
+               type: 'GET',
+               url: 'https://dummyjson.com/carts',
+               success: function (data) {
+                    let tbl = "";
+                    let carts = data.carts;
+                    carts.map((item) => {
+                         tbl += `
                     <div class="row my-3">
                          <div class="card w-100 py-2">
                               <div class="row d-flex">
                               `
 
-                              let cartProduct = item.products;
-                         
-                              cartProduct.map((product)=>{
-                                 tbl +=   `
+                         let cartProduct = item.products;
+
+                         cartProduct.map((product) => {
+                              tbl += `
                                    <div class="col-20">
                                         <div class="card ps-1 h-100">
                                         <img src="${product.thumbnail}" class="card-img-top" style="width:100%;height:300px;object-fit:cover;" alt="...">
@@ -57,33 +57,21 @@
                                         </div>
                                    </div>
                                  `
-                              })
+                         })
 
-                         tbl +=  
-                         `
+                         tbl +=
+                              `
                          </div>
                          </div>
                     </div>`
-                   
-               })
-               document.getElementById('card').innerHTML = tbl;
+
+                    })
+                    document.getElementById('card').innerHTML = tbl;
+               }
           })
 
      </script>
 </body>
+
 </html>
 
-<!-- 
-
-    
- -->
-<!--  // return tbl += `
-                    // <div class="col-20 px-2 py-2">
-                    //      <div class="card">
-                              
-                    //           <div class="card-body">
-                                
-                    //           </div>
-                    //         </div>
-                    //     </div>
-                    // `  -->
